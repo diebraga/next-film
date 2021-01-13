@@ -1,5 +1,6 @@
 import React from "react";
-import { Link, Box, Flex, Text, Button, Stack } from "@chakra-ui/react";
+import { Box, Flex, Text, Stack } from "@chakra-ui/react";
+import Link from 'next/link'
 import { DarkModeSwitch } from '../components/DarkModeSwitch'
 
 const Header = (props) => {
@@ -10,8 +11,6 @@ const Header = (props) => {
   return (
     <HeaderContainer {...props}>
       <h1
-        w="100px"
-        color={["white", "white", "primary.500", "primary.500"]}
       >🌈 Next-Strapi</h1>
       <MenuToggle toggle={toggle} isOpen={isOpen} />
       <MenuLinks isOpen={isOpen} />
@@ -49,16 +48,6 @@ const MenuToggle = ({ toggle, isOpen }) => {
   );
 };
 
-const MenuItem = ({ children, isLast, to = "/", ...rest }) => {
-  return (
-    <Link href={to}>
-      <Text display="block" {...rest}>
-        {children}
-      </Text>
-    </Link>
-  );
-};
-
 const MenuLinks = ({ isOpen }) => {
   return (
     <Box
@@ -70,11 +59,11 @@ const MenuLinks = ({ isOpen }) => {
         ml={1}
         align="start"
         justify={["center"]}
-        direction={["column", "column", "column", "column"]}
+        direction={["column", "column", "row", "row"]}
         pt={[4, 4, 0, 0]}
       >
-        <MenuItem to="/">Home</MenuItem>
-        <MenuItem>Dark Mode <DarkModeSwitch /></MenuItem>
+        <Link href="/">Home</Link>
+        <Text>Dark Mode <DarkModeSwitch /></Text>
 
       </Stack>
     </Box>

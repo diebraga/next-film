@@ -1,7 +1,8 @@
 import { ChakraProvider } from '@chakra-ui/react'
+import { AppProps } from 'next/app'
 import Header from '../components/Header'
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider>
       <Header />
