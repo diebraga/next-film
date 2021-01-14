@@ -1,11 +1,12 @@
 import { NextPage } from 'next'
+import { Box } from '@chakra-ui/react'
 
 const About: NextPage = () => {
 
   return (
-    <div>
+    <Box pt='120px'>
       About 
-    </div>
+    </Box>
   )
 }
 

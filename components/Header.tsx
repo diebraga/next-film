@@ -1,6 +1,6 @@
 import React from "react";
-import { Box, Flex, Text, Stack } from "@chakra-ui/react";
-import Link from 'next/link'
+import { Box, Flex, Text, Stack, Link, Tabs, Tab } from "@chakra-ui/react";
+import NextLink from 'next/link'
 import { DarkModeSwitch } from '../components/DarkModeSwitch'
 
 const Header = (props) => {
@@ -54,18 +54,30 @@ const MenuLinks = ({ isOpen }) => {
       display={{ base: isOpen ? "block" : "none", md: "block" }}
       flexBasis={{ base: "100%", md: "auto" }}
     >
+      <Tabs>
       <Stack
         spacing={4}
         ml={1}
-        align="start"
+        align="center"
         justify={["center"]}
         direction={["column", "column", "row", "row"]}
         pt={[4, 4, 0, 0]}
       >
-        <Link href="/">Home</Link>
+        
+        <NextLink href="/">
+          <Link>
+            <Tab>Home</Tab>
+          </Link>
+        </NextLink>
+        <NextLink href="/about">
+          <Link>
+            <Tab>About</Tab>
+          </Link>
+        </NextLink>
         <Text>Dark Mode <DarkModeSwitch /></Text>
 
       </Stack>
+      </Tabs>
     </Box>
   );
 };
@@ -81,7 +93,7 @@ const HeaderContainer = ({ children, ...props }) => {
       mb={8}
       p={8}
       bg="blue.700"
-      color={["white", "white", "primary.700", "primary.700"]}
+      position='fixed'
       {...props}
     >
       {children}
