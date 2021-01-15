@@ -8,10 +8,12 @@ import {
   Heading,
   Button
  } from '@chakra-ui/react'
- import { NextRouter, useRouter } from 'next/router'
+ import { useRouter } from 'next/router'
 
-const MoviesList: NextPage = ({ movies, page }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const MoviesList: NextPage = ({ movies, page, numberOfMovies }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const router = useRouter()
+
+  const lastPage = Math.ceil(numberOfMovies / 3)
 
   return (
     <>
@@ -32,36 +34,32 @@ const MoviesList: NextPage = ({ movies, page }: InferGetServerSidePropsType<type
                   mt={2}
                   fontSize={{ base: '16px'}}
                 >
-                  Released: {movie.release_date}
+                  Released: {movie.year}
                 </Text>
               </Box>
           </WrapItem>
         ))}
       </Wrap>
       <Wrap justify='center'>
-        <Button variant="solid" onClick={() => router.push(`/movies?=/page=${page - 1}`)}>Previous</Button>&nbsp;&nbsp;
-        <Button variant="solid" onClick={() => router.push(`/movies?=/page=${page + 1}`)}>Next</Button>
+        <Button onClick={() => router.push(`/movies?page=${page - 1}`)}
+          disabled={page <= 1}>Previous</Button>&nbsp;&nbsp;
+        <Button onClick={() => router.push(`/movies?page=${page + 1}`)}
+          disabled={page >= lastPage}>Next</Button>
       </Wrap>
       </Box>
     </>
   )
 }
 
-type Data = {
-  _id: string
-  title: string
-  description: string
-  release_date: Date
-  poster: object
-}
-
-
 export async function getServerSideProps({ query: {page=1}}) {
 
-  const start = +page === 1 ? 0 : (page - 1) * 3
+  const start = +page === 1 ? 0 : (+page - 1) * 3
+
+  const numberOfMoviesResponse = await fetch(`${API_URL}/movies/count`)
+  const numberOfMovies = await numberOfMoviesResponse.json()
 
   const res = await fetch(`${API_URL}/movies?_limit=3&_start=${start}`)
-  const data: Data[] = await res.json()
+  const data = await res.json()
 
   if (!data) {
     return {
@@ -72,7 +70,8 @@ export async function getServerSideProps({ query: {page=1}}) {
   return {
     props: {
       movies: data,
-      page: page
+      page: +page,
+      numberOfMovies
     }, // will be passed to the page component as props
   }
 }

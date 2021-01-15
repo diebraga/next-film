@@ -3,11 +3,14 @@ import { Box, Text, Heading } from '@chakra-ui/react'
 import { API_URL } from '../../../utils/url'
 
 const Movie: NextPage = ({ movie }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  console.log(movie)
   return (
     <Box align='center'>
-      <Box pt='120px' maxWidth='850px' textAlign='start'>
+      <Box ml={3} mr={3} pt='120px' maxWidth='850px' textAlign='start'>
         <Heading as='h1' mt={2}>{movie.title}</Heading>
         <Text as='p' mt={6}>{movie.description}</Text>
+        <Text as='h4' mt={6}>Genre {movie.genre.genre_type}</Text>
+
       </Box>
     </Box>
   )

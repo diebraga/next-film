@@ -49,7 +49,7 @@ const Index: NextPage = ({ movies }: InferGetServerSidePropsType<typeof getServe
                     Released: {movie.year}
                   </Text>
                   <NextLink href="/movies/[genre]/[slug]" as={`/movies/${movie.genre.slug}/${movie.slug}`}>
-                    <Link color='blue.500'>
+                    <Link mt={2} color='blue.500'>
                       more about {movie.title}...
                     </Link>
                   </NextLink>
