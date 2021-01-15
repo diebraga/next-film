@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Flex, Text, Stack, Link, Tabs, Tab } from "@chakra-ui/react";
+import { Box, Flex, Text, Stack, Tabs, Tab } from "@chakra-ui/react";
 import NextLink from 'next/link'
 import { DarkModeSwitch } from '../components/DarkModeSwitch'
 
@@ -10,8 +10,10 @@ const Header = (props) => {
 
   return (
     <HeaderContainer {...props}>
-      <h1
-      >🌈 Next-Strapi</h1>
+      <Text
+        as='h1'
+        color='white'
+      >🌈 Next-Strapi</Text>
       <MenuToggle toggle={toggle} isOpen={isOpen} />
       <MenuLinks isOpen={isOpen} />
     </HeaderContainer>
@@ -57,6 +59,7 @@ const MenuLinks = ({ isOpen }) => {
       <Tabs>
       <Stack
         spacing={4}
+        color='white'
         ml={1}
         align="center"
         justify={["center"]}
@@ -65,14 +68,14 @@ const MenuLinks = ({ isOpen }) => {
       >
         
         <NextLink href="/">
-          <Link>
+          <a>
             <Tab>Home</Tab>
-          </Link>
+          </a>
         </NextLink>
         <NextLink href="/about">
-          <Link>
+          <a>
             <Tab>About</Tab>
-          </Link>
+          </a>
         </NextLink>
         <Text>Dark Mode <DarkModeSwitch /></Text>
 

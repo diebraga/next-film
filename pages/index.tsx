@@ -1,5 +1,6 @@
 import { NextPage, InferGetServerSidePropsType } from 'next'
 import { API_URL } from '../utils/url'
+import { NextSeo } from 'next-seo'
 import { 
   Wrap, 
   WrapItem,
@@ -12,9 +13,19 @@ import {
  import NextLink from 'next/link'
 
 const Index: NextPage = ({ movies }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const SEO = {
+    title: 'index page',
+    description: 'an index page',
+
+    openGraph: {
+      title: 'index page',
+      description: 'an index page',
+    }  
+  }
 
   return (
     <>
+    <NextSeo {...SEO} />
     <Box w='100%' align='center'>
       <Heading as='h1' ml='30px' pt='120px'>Featured Movies</Heading>
       <Box w='100%' align='center'>
