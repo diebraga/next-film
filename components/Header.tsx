@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Flex, Text, Stack, Tabs, Tab } from "@chakra-ui/react";
+import { Box, Flex, Text, Stack, Spacer, Link } from "@chakra-ui/react";
 import NextLink from 'next/link'
 import { DarkModeSwitch } from '../components/DarkModeSwitch'
 
@@ -10,12 +10,15 @@ const Header = (props) => {
 
   return (
     <HeaderContainer {...props}>
-      <Text
-        as='h1'
-        color='white'
-      >🌈 Next-Strapi</Text>
-      <MenuToggle toggle={toggle} isOpen={isOpen} />
+      <NextLink href='/'>
+        <Link
+          as='h1'
+          color='white'
+        >🌈 Next-Strapi
+        </Link>
+      </NextLink>
       <MenuLinks isOpen={isOpen} />
+      <MenuToggle toggle={toggle} isOpen={isOpen} />
     </HeaderContainer>
   );
 };
@@ -56,11 +59,10 @@ const MenuLinks = ({ isOpen }) => {
       display={{ base: isOpen ? "block" : "none", md: "block" }}
       flexBasis={{ base: "100%", md: "auto" }}
     >
-      <Tabs>
       <Stack
         spacing={4}
         color='white'
-        ml={1}
+        ml={4}
         align="center"
         justify={["center"]}
         direction={["column", "column", "row", "row"]}
@@ -68,19 +70,18 @@ const MenuLinks = ({ isOpen }) => {
       >
         
         <NextLink href="/">
-          <a>
-            <Tab>Home</Tab>
-          </a>
+          <Link>
+            <>Home</>
+          </Link>
         </NextLink>
         <NextLink href="/about">
-          <a>
-            <Tab>About</Tab>
-          </a>
+          <Link>
+            <>About</>
+          </Link>
         </NextLink>
+        <Spacer />
         <Text>Dark Mode <DarkModeSwitch /></Text>
-
       </Stack>
-      </Tabs>
     </Box>
   );
 };
@@ -90,7 +91,7 @@ const HeaderContainer = ({ children, ...props }) => {
     <Flex
       as="nav"
       align="center"
-      justify="space-between"
+      justify="start"
       wrap="wrap"
       w="100%"
       mb={8}

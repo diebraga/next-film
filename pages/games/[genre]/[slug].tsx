@@ -3,33 +3,38 @@ import { Box, Text, Heading, Tag } from '@chakra-ui/react'
 import { API_URL } from '../../../utils/url'
 import { NextSeo } from 'next-seo'
 
-const Movie: NextPage = ({ movie }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+interface Props {
+  title: string
+}
+const game: NextPage = ({ game }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const SEO = {
-    title: `Next Films | ${movie.title}`,
-    description: movie.description,
+    title: `Next Films | ${game.title}`,
+    description: game.description,
 
     openGraph: {
-      title: `Next Films | ${movie.title}`,
-      description: movie.description,
+      title: `Next Films | ${game.title}`,
+      description: game.description,
     }  
   }
+
+  console.log(game)
   return (
     <Box align='center'>
       <NextSeo {...SEO} />
       <Box ml={3} mr={3} pt='120px' maxWidth='850px' textAlign='start'>
-        <Heading as='h1' mt={2}>{movie.title}</Heading>
-        <Text as='p' mt={6}>{movie.description}</Text>
-        <Text as='h4' mt={6}>Genre: <Tag>{movie.genre.genre_type}</Tag></Text>
-
+        <Heading as='h1' mt={2}>{game.title}</Heading>
+        <Text as='p' mt={6}>{game.description}</Text>
+        <Text>Genre: <Tag>{game.genre.genre_type}</Tag></Text>
       </Box>
     </Box>
   )
 }
 
 export async function getServerSideProps(context) {
+
   const { slug } = context.query
 
-  const res = await fetch(`${API_URL}/movies?slug=${slug}`)
+  const res = await fetch(`${API_URL}/games?slug=${slug}`)
   const data = await res.json()
 
   if (!data) {
@@ -40,9 +45,9 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      movie: data[0]
+      game: data[0]
     }, // will be passed to the page component as props
   }
 }
 
-export default Movie;
+export default game;

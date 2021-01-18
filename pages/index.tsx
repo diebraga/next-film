@@ -1,5 +1,6 @@
 import { NextPage, InferGetServerSidePropsType } from 'next'
 import { API_URL } from '../utils/url'
+import getConfig from 'next/config'
 import { NextSeo } from 'next-seo'
 import { 
   Wrap, 
@@ -11,8 +12,9 @@ import {
   Link
  } from '@chakra-ui/react'
  import NextLink from 'next/link'
+import { motionValue } from 'framer-motion'
 
-const Index: NextPage = ({ movies }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const Index: NextPage = ({ games }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const SEO = {
     title: 'index page',
     description: 'an index page',
@@ -21,17 +23,18 @@ const Index: NextPage = ({ movies }: InferGetServerSidePropsType<typeof getServe
       title: 'index page',
       description: 'an index page',
     }  
-  }
+  } 
+  console.log(games)
 
   return (
     <>
     <NextSeo {...SEO} />
     <Box w='100%' align='center'>
-      <Heading as='h1' ml='30px' pt='120px'>Featured Movies</Heading>
+      <Heading as='h1' ml='30px' pt='120px'>Featured games</Heading>
       <Box w='100%' align='center'>
         <Wrap spacing="30px" justify="space-around" mt={10} maxWidth='1309px'>
-          {movies.map(movie => (
-            <WrapItem key={movie._id}>
+          {/* {games.map(game => (
+            <WrapItem key={game._id}>
               <Box
               boxShadow="lg"
               bg="gray.100" 
@@ -40,7 +43,7 @@ const Index: NextPage = ({ movies }: InferGetServerSidePropsType<typeof getServe
               w={{ base: '290px', lg: '320px' }}
               >
                 <Image 
-                  src={API_URL + movie.poster.url}  
+                  src={game.poster.url}  
                   h={{ base: '340px', lg: '420px' }}
                   w='100%'
                   borderTopRadius='20px'
@@ -50,25 +53,25 @@ const Index: NextPage = ({ movies }: InferGetServerSidePropsType<typeof getServe
                     as='h3'
                     fontSize={{ base: '30px'}}
                   >
-                    {movie.title}
+                    {game.title}
                   </Text>
                   <Text
                     as='h4'
                     mt={2}
                     fontSize={{ base: '16px'}}
                   >
-                    Released: {movie.year}
+                    Released: {game.year}
                   </Text>
-                  <NextLink href="/movies/[genre]/[slug]" as={`/movies/${movie.genre.slug}/${movie.slug}`}>
+                  <NextLink href="/games/[genrer]/[slug]" as={`/games/${game.genre.slug}/${game.slug}`}>
                     <Link mt={2} color='blue.500'>
-                      more about {movie.title}...
+                      more about {game.title}...
                     </Link>
                   </NextLink>
                 </Box>
 
               </Box>
             </WrapItem>
-          ))}
+          ))} */}
         </Wrap>
         </Box>
       </Box>
@@ -85,7 +88,7 @@ type Data = {
 }
 
 export async function getServerSideProps() {
-  const res = await fetch(`${API_URL}/movies`)
+  const res = await fetch(`${process.env.STRAPI_URL}/games`)
   const data: Data[] = await res.json()
 
   if (!data) {
@@ -96,7 +99,7 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      movies: data
+      games: data
     }, // will be passed to the page component as props
   }
 }
