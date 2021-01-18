@@ -1,6 +1,5 @@
 import { NextPage, InferGetServerSidePropsType } from 'next'
 import { Box, Text, Heading, Tag } from '@chakra-ui/react'
-import { API_URL } from '../../../utils/url'
 import { NextSeo } from 'next-seo'
 
 interface Props {
@@ -8,11 +7,11 @@ interface Props {
 }
 const game: NextPage = ({ game }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const SEO = {
-    title: `Next Films | ${game.title}`,
+    title: `Next Games | ${game.title}`,
     description: game.description,
 
     openGraph: {
-      title: `Next Films | ${game.title}`,
+      title: `Next Games | ${game.title}`,
       description: game.description,
     }  
   }
@@ -34,7 +33,7 @@ export async function getServerSideProps(context) {
 
   const { slug } = context.query
 
-  const res = await fetch(`${API_URL}/games?slug=${slug}`)
+  const res = await fetch(`${process.env.STRAPI_URL}/games?slug=${slug}`)
   const data = await res.json()
 
   if (!data) {

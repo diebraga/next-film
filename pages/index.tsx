@@ -1,6 +1,4 @@
 import { NextPage, InferGetServerSidePropsType } from 'next'
-import { API_URL } from '../utils/url'
-import getConfig from 'next/config'
 import { NextSeo } from 'next-seo'
 import { 
   Wrap, 
@@ -12,7 +10,6 @@ import {
   Link
  } from '@chakra-ui/react'
  import NextLink from 'next/link'
-import { motionValue } from 'framer-motion'
 
 const Index: NextPage = ({ games }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const SEO = {
@@ -30,10 +27,10 @@ const Index: NextPage = ({ games }: InferGetServerSidePropsType<typeof getServer
     <>
     <NextSeo {...SEO} />
     <Box w='100%' align='center'>
-      <Heading as='h1' ml='30px' pt='120px'>Featured games</Heading>
+      <Heading as='h1' pt='120px'>Featured games</Heading>
       <Box w='100%' align='center'>
         <Wrap spacing="30px" justify="space-around" mt={10} maxWidth='1309px'>
-          {/* {games.map(game => (
+          {games.map(game => (
             <WrapItem key={game._id}>
               <Box
               boxShadow="lg"
@@ -71,7 +68,7 @@ const Index: NextPage = ({ games }: InferGetServerSidePropsType<typeof getServer
 
               </Box>
             </WrapItem>
-          ))} */}
+          ))}
         </Wrap>
         </Box>
       </Box>

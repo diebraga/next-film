@@ -1,5 +1,4 @@
 import { NextPage, InferGetServerSidePropsType } from 'next'
-import { API_URL } from '../../utils/url'
 import { 
   Wrap, 
   WrapItem,
@@ -18,7 +17,7 @@ const GameList: NextPage = ({ games, page, numberOfGames }: InferGetServerSidePr
   return (
     <>
     <Box w='100%' align='center'>
-    <Heading as='h1' ml='30px' pt='120px'>Game List</Heading>
+    <Heading as='h1' pt='120px'>Game List</Heading>
       <Wrap spacing="30px" justify="space-around" mt={10} maxWidth='1309px'>
         {games.map(game => (
           <WrapItem key={game._id}>
@@ -55,10 +54,10 @@ export async function getServerSideProps({ query: {page=1}}) {
 
   const start = +page === 1 ? 0 : (+page - 1) * 3
 
-  const numberOfGamesResponse = await fetch(`${API_URL}/games/count`)
+  const numberOfGamesResponse = await fetch(`${process.env.STRAPI_URL}/games/count`)
   const numberOfGames = await numberOfGamesResponse.json()
 
-  const res = await fetch(`${API_URL}/games?_limit=3&_start=${start}`)
+  const res = await fetch(`${process.env.STRAPI_URL}/games?_limit=3&_start=${start}`)
   const data = await res.json()
 
   if (!data) {

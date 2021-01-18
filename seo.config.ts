@@ -1,6 +1,6 @@
 export default {
   title: 'Next Films',
-  description: 'Movies list Nextjs and Strapi',
+  description: 'Game list Nextjs and Strapi',
   openGraph: {
     type: 'website',
     locale: 'en_IE',
